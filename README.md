@@ -19,3 +19,11 @@ options:
 
 # malUrl.py
 
+usage: malUrl.py [-h] --url-file URL_FILE
+
+options:
+  -h, --help           show this help message and exit
+  --url-file URL_FILE
+
+# geoIP.py
+
