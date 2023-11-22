@@ -15,9 +15,10 @@ def process_urls():
             url = url.strip()  # Remove any leading/trailing whitespace
             try:
                 response = requests.get(url, timeout=5)
-                df = df.append({'URL': url, 'Status Code': response.status_code}, ignore_index=True)
+                df = pd.DataFrame({'URL': [url], 'Status Code': [response.status_code]})
             except requests.exceptions.RequestException as e:
-                df = df.append({'URL': url, 'Status Code': 'Error: ' + str('Timeout')}, ignore_index=True)
+                df = pd.DataFrame({'URL': [url], 'Status Code': ['Error: ' + str('Timeout')]})
+            df = pd.concat([df, df], ignore_index=True)
         return df
 
     return malCheck(args.url_file)

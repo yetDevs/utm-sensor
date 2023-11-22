@@ -27,3 +27,8 @@ options:
 
 # geoIP.py
 
+usage: geoIP.py [-h] --ip-file IP_FILE
+
+options:
+  -h, --help         show this help message and exit
+  --ip-file IP_FILE

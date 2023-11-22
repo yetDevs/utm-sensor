@@ -15,9 +15,10 @@ def process_ips():
             ip = ip.strip()  # Remove any leading/trailing whitespace
             try:
                 socket.create_connection((ip, '80'), timeout=5)
-                df = df.append({'IP': ip, 'Status': 'Fail'}, ignore_index=True)
+                df_new = pd.DataFrame({'IP': [ip], 'Status': ['Fail']})
             except Exception:
-                df = df.append({'IP': ip, 'Status': 'Pass'}, ignore_index=True)
+                df_new = pd.DataFrame({'IP': [ip], 'Status': ['Pass']})
+            df = pd.concat([df, df_new], ignore_index=True)
         return df
 
     return connectIp(args.ip_file)
