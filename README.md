@@ -1,21 +1,18 @@
 # utm-sensor
-Testing the functionality of UTM.
 
+All Files output Pandas dataframe from functions.
+You're able to import these and utilize the dataframes to output graphics.
 
 # portScan.py
 
-usage: portScan.py [-h] [--server SERVER] [--portRange PORTRANGE] [--verbose] [--output OUTPUT]
+usage: portScan.py [-h] [--server SERVER] [--ports PORTS]
 
 Port Scanner
 
 options:
-  -h, --help            show this help message and exit
-  --server SERVER       Server IP or URL
-  --portRange PORTRANGE
-                        Port range to scan
-  --verbose             Verbose output
-  --output OUTPUT       Output file name
-
+  -h, --help       show this help message and exit
+  --server SERVER  Server IP or URL
+  --ports PORTS    Port range to scan
 
 # malUrl.py
 
