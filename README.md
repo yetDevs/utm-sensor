@@ -29,3 +29,28 @@ usage: geoIP.py [-h] --ip-file IP_FILE
 options:
   -h, --help         show this help message and exit
   --ip-file IP_FILE
+
+# malDownload
+
+usage: malDownload.py [-h] --mal_url MAL_URL
+
+options:
+  -h, --help         show this help message and exit
+  --mal_url MAL_URL
+
+# dnsCheck
+
+usage: dataSense.py [-h] --req_url REQ_URL --req_data REQ_DATA
+
+options:
+  -h, --help           show this help message and exit
+  --req_url REQ_URL
+  --req_data REQ_DATA
+
+# Data Sense
+usage: dataSense.py [-h] --req_url REQ_URL --req_data REQ_DATA
+
+options:
+  -h, --help           show this help message and exit
+  --req_url REQ_URL
+  --req_data REQ_DATA

@@ -8,18 +8,21 @@ def parse_args():
     args = parser.parse_args()
     return args
 
-def get_mal_urls(mal_url):
+def get_mal_url_status(mal_url):
     df = pd.DataFrame(columns=['URL', 'Status'])
-    for url in mal_url:
-        url = url.strip()
+    for mal_url in mal_url:
+        mal_url = mal_url.strip()  # Remove any leading/trailing whitespace
         try:
-            requests.get(url, timeout=5)
-            df = df.append({'URL': url, 'Status': 'Fail'}, ignore_index=True)
+            requests.get(mal_url, timeout=5)
+            df = df.append({'URL': mal_url, 'Status': 'Fail'}, ignore_index=True)
         except Exception:
-            df = df.append({'URL': url, 'Status': 'Pass'}, ignore_index=True)
+            df = df.append({'URL': mal_url, 'Status': 'Pass'}, ignore_index=True)
     return df
 
 def main():
     args = parse_args()
-    df = get_mal_urls(args.mal_url)
+    df = get_mal_url_status(args.mal_url)
     print(df)
+
+if __name__ == "__main__":
+    main()
