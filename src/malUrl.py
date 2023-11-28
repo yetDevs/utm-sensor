@@ -23,5 +23,9 @@ def process_urls():
 
     return malCheck(args.url_file)
 
-df = process_urls()
-print(df)
+def main():
+    df = process_urls()
+    print(df)
+
+if __name__ == "__main__":
+    main()
