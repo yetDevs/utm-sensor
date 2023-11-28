@@ -40,17 +40,16 @@ options:
 
 # dnsCheck
 
-usage: dataSense.py [-h] --req_url REQ_URL --req_data REQ_DATA
+usage: dnsCheck.py [-h] --domain-file DOMAIN_FILE
+
+options:
+  -h, --help            show this help message and exit
+  --domain-file DOMAIN_FILE
+
+# dataSense
+
+usage: dataSense.py [-h] --req_data REQ_DATA
 
 options:
   -h, --help           show this help message and exit
-  --req_url REQ_URL
-  --req_data REQ_DATA
-
-# Data Sense
-usage: dataSense.py [-h] --req_url REQ_URL --req_data REQ_DATA
-
-options:
-  -h, --help           show this help message and exit
-  --req_url REQ_URL
-  --req_data REQ_DATA
+  --req_data REQ_DATA I've added req data to /txt/testdata.json
