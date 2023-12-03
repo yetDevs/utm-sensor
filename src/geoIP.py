@@ -5,7 +5,7 @@ import pandas as pd
 def process_ips():
     # Get arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--ip-file", type=argparse.FileType('r'), required=True)
+    parser.add_argument("--ip-file", type=argparse.FileType('r'))
     args = parser.parse_args()
 
     def connectIp(ip_file):
