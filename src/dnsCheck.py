@@ -4,7 +4,7 @@ import pandas as pd
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--domain-file", type=argparse.FileType('r'), required=True)
+    parser.add_argument("--domain-file", type=argparse.FileType('r'))
     args = parser.parse_args()
     return args
 

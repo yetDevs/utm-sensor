@@ -5,7 +5,7 @@ import argparse
 def process_urls():
     # Get arguments
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url-file", type=argparse.FileType('r'), required=True)
+    parser.add_argument("--url-file", type=argparse.FileType('r'))
     args = parser.parse_args()
 
     def malCheck(url_file):

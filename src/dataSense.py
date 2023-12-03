@@ -5,7 +5,7 @@ import json
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--req_data", type=argparse.FileType('r'), required=True)
+    parser.add_argument("--req_data", type=argparse.FileType('r'))
     args = parser.parse_args()
     return args
 

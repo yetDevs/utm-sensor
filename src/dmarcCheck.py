@@ -1,20 +1,24 @@
 import pandas as pd
 import dns.resolver
 
-
 def check_dmarc(domain):
+    df = pd.DataFrame(columns=['Domain', 'DMARC'])
     try:
-        answers = dns.resolver.resolve(domain, 'TXT')
+        answers = dns.resolver.resolve('_dmarc.' + domain, 'TXT')
         for rdata in answers:
             txt_string = rdata.strings[0].decode("utf-8")
             if "v=DMARC1" in txt_string:
-                return "Pass"
-        return "Fail"
+                df = df.append({'Domain': domain, 'DMARC': 'Pass'}, ignore_index=True)
+            else:
+                df = df.append({'Domain': domain, 'DMARC': 'Fail'}, ignore_index=True)
     except:
-        return "Fail"
-    
+        df = df.append({'Domain': domain, 'DMARC': 'Fail'}, ignore_index=True)
+    return df
 
 def main():
     df = pd.read_csv('domains.csv')
-    df['DMARC'] = df['Domain'].apply(check_dmarc)
-    print(df)
+    df_dmarc = pd.concat([check_dmarc(domain) for domain in df['Domain']], ignore_index=True)
+    print(df_dmarc)
+
+if __name__ == "__main__":
+    main()
