@@ -9,14 +9,15 @@ def parse_args():
     return args
 
 def get_mal_url_status(mal_url):
-    df = pd.DataFrame(columns=['URL', 'Status'])
+    df_list = []
     for mal_url in mal_url:
         mal_url = mal_url.strip()  # Remove any leading/trailing whitespace
         try:
             requests.get(mal_url, timeout=5)
-            df = df.append({'URL': mal_url, 'Status': 'Fail'}, ignore_index=True)
+            df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Fail']}))
         except Exception:
-            df = df.append({'URL': mal_url, 'Status': 'Pass'}, ignore_index=True)
+            df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Pass']}))
+    df = pd.concat(df_list, ignore_index=True)
     return df
 
 def main():

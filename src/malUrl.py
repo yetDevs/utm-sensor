@@ -1,30 +1,28 @@
+import argparse
 import requests
 import pandas as pd
-import argparse
 
-def process_urls():
-    # Get arguments
+def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--url-file", type=argparse.FileType('r'))
+    parser.add_argument("--url-file", type=argparse.FileType('r'), required=True)
     args = parser.parse_args()
+    return args
 
-    def malCheck(url_file):
-        # Create DataFrame
-        df = pd.DataFrame(columns=['URL', 'Status Code'])
-        for url in url_file:
-            url = url.strip()  # Remove any leading/trailing whitespace
-            try:
-                response = requests.get(url, timeout=5)
-                df = pd.DataFrame({'URL': [url], 'Status Code': [response.status_code]})
-            except requests.exceptions.RequestException as e:
-                df = pd.DataFrame({'URL': [url], 'Status Code': ['Error: ' + str('Timeout')]})
-            df = pd.concat([df, df], ignore_index=True)
-        return df
-
-    return malCheck(args.url_file)
+def malCheck(url_file):
+    df_list = []
+    for url in url_file:
+        url = url.strip()  # Remove any leading/trailing whitespace
+        try:
+            response = requests.get(url, timeout=5)
+            df_list.append(pd.DataFrame({'URL': [url], 'Status Code': [response.status_code]}))
+        except requests.exceptions.RequestException as e:
+            df_list.append(pd.DataFrame({'URL': [url], 'Status Code': ['Error: ' + str(e)]}))
+    df = pd.concat(df_list, ignore_index=True)
+    return df
 
 def main():
-    df = process_urls()
+    args = parse_args()
+    df = malCheck(args.url_file)
     print(df)
 
 if __name__ == "__main__":
