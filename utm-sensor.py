@@ -33,7 +33,7 @@ def run_tests():
     print(df_malDownload)
 
     print("Running Port Scan...")
-    df_portScan = portScan.portScan(open('./txt/scanip.txt', 'r'))
+    df_portScan = portScan.portCheck(server='scanme.nmap.org', ports=portScan.portRanger('20-30'))
     df_portScan['Module'] = 'Port Scan'
     print(df_portScan)
 
