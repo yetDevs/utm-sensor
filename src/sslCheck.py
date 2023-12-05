@@ -8,6 +8,13 @@ def parse_args():
     args = parser.parse_args()
     return args
 
+def getCert(path):
+    if not path.endswith('.pem'):
+        raise ValueError('Invalid file type. Please provide a .pem file.')
+    with open(path, 'r') as f:
+        cert = f.read()
+    return cert
+
 def get_ssl_cert_status(ssl_cert, url_file):
     df_list = []
     for url in url_file:

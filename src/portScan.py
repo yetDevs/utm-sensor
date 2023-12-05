@@ -20,8 +20,10 @@ def portCheck(server, ports):
         result = sock.connect_ex((server, port))
         if result == 0:
             df = pd.concat([df, pd.DataFrame({'Port': [port], 'Status': ['Open']})], ignore_index=True)
+            print({'Port': [port], 'Status': ['Open']})
         else:
             df = pd.concat([df, pd.DataFrame({'Port': [port], 'Status': ['Closed']})], ignore_index=True)
+            print({'Port': [port], 'Status': ['Closed']})
         sock.close()
     return df
 
