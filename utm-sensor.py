@@ -8,6 +8,7 @@ def parse_args():
     parser = argparse.ArgumentParser()
     parser.add_argument("--runAll", action='store_true')
     parser.add_argument("--portScan", action='store_true')
+    parser.add_argument("--sslCheck", action='store_true')
     parser.add_argument("--syncAssets", type=str)
     args = parser.parse_args()
     return args
@@ -55,18 +56,26 @@ def run_portScan():
     df_portScan = pd.concat([df_portScan], ignore_index=True)  # Add other dataframes to this list
     return df_portScan
 
-def run_SSLCheck():
+def run_sslCheck():
+    print("Running SSL Check...")
+    df_sslCheck = sslCheck.get_ssl_cert_status(sslCheck.getCert('./assets/cert.pem'), open('./assets/sslCheckUrls.txt', 'r'))
+    df_sslCheck['Module'] = 'SSL Check'
+    print(df_sslCheck)
 
-
+    df_sslCheck = pd.concat([df_sslCheck], ignore_index=True)  # Add other dataframes to this list
+    return df_sslCheck
 
 def main():
     args = parse_args()
     if args.runAll:
         df = run_tests()
-        df.to_csv('output.csv', index=False)
+        df.to_csv('tests_Output.csv', index=False)
     elif args.portScan:
         df = run_portScan()
-        df.to_csv('output.csv', index=False)
+        df.to_csv('portScan_Output.csv', index=False)
+    elif args.sslCheck:
+        df = run_sslCheck()
+        df.to_csv('sslCheck_Output.csv', index=False)
     elif args.syncAssets:
         syncAssets.syncAssets(assets[args.syncAssets])
     else:
