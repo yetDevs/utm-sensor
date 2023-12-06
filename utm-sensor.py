@@ -1,11 +1,14 @@
 import pandas as pd
 import argparse
-from src import dataSense, geoIP, dnsCheck, malUrl, portScan, malDownload, dmarcCheck
+from src import dataSense, geoIP, dnsCheck, malUrl, portScan, malDownload, dmarcCheck, syncAssets, assetConfig, sslCheck
+from src.assetConfig import assets
+
 
 def parse_args():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--run", action='store_true')
+    parser.add_argument("--runAll", action='store_true')
     parser.add_argument("--portScan", action='store_true')
+    parser.add_argument("--syncAssets", type=str)
     args = parser.parse_args()
     return args
 
@@ -52,16 +55,22 @@ def run_portScan():
     df_portScan = pd.concat([df_portScan], ignore_index=True)  # Add other dataframes to this list
     return df_portScan
 
+def run_SSLCheck():
+
+
+
 def main():
     args = parse_args()
-    if args.run:
+    if args.runAll:
         df = run_tests()
         df.to_csv('output.csv', index=False)
     elif args.portScan:
         df = run_portScan()
         df.to_csv('output.csv', index=False)
+    elif args.syncAssets:
+        syncAssets.syncAssets(assets[args.syncAssets])
     else:
-        print("No arguments provided. Please run with --all or --portScan")
+        print("No arguments provided. Please run with --runAll or --portScan or --syncAssets [malUrls/malDomains/ipList]")
 
 if __name__ == "__main__":
     main()
