@@ -1,3 +1,9 @@
 assets/cert.pem
 assets/cert.der
 sslCheck_Output.csv
+include/
+bin/
+lib/
+lib64/
+pyvenv.cfg
+lib64
