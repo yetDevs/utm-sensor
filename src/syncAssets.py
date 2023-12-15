@@ -20,7 +20,7 @@ def syncAssets(testName):
         if response.status_code == 200:
             with open(filename, 'w') as f:
                 split = response.text.splitlines()
-                split = split[-7:]
+                split = split[-10:]
                 for line in split:
                     f.write(line + '\n')
             print("Successfully updated " + filename)

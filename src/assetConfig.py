@@ -2,7 +2,7 @@
 
 assets = {
     "malDomains": {
-        "url": "https://raw.githubusercontent.com/StevenBlack/hosts/master/hosts",
+        "url": "https://raw.githubusercontent.com/stamparm/blackbook/master/blackbook.txt",
         "filename": "./assets/domains.txt",
         "help": "Update the list of malicious domains"
     },  
