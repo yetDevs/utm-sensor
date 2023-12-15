@@ -2,10 +2,6 @@ import pandas as pd
 import argparse
 from src import dataSense, geoIP, dnsCheck, malUrl, portScan, malDownload, dmarcCheck, syncAssets, assetConfig, sslCheck
 from src.assetConfig import assets
-try:
-    import _bootlocale
-except ImportError:
-    pass
 
 
 def parse_args():
