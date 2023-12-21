@@ -11,7 +11,7 @@ def parse_args():
 def malCheck(url_file):
     df_list = []
     for url in url_file:
-        url = url.strip()  # Remove any leading/trailing whitespace
+        url = "http://" + url.strip()  # Remove any leading/trailing whitespace
         try:
             response = requests.get(url, timeout=5)
             df_list.append(pd.DataFrame({'URL': [url], 'Status Code': [response.status_code]}))
