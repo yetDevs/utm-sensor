@@ -13,8 +13,10 @@ def connect_ip(ip_file):
     for ip in ip_file:
         ip = ip.strip()  # Remove any leading/trailing whitespace
         try:
-            socket.create_connection((ip, 80), timeout=5)
-            df_list.append(pd.DataFrame({'IP': [ip], 'Status': ['Fail']}))
+            conn = socket.create_connection((ip, 80), timeout=5)
+            if conn:
+                df_list.append(pd.DataFrame({'IP': [ip], 'Status': ['Fail']}))
+                conn.close()
         except Exception:
             df_list.append(pd.DataFrame({'IP': [ip], 'Status': ['Pass']}))
     df = pd.concat(df_list, ignore_index=True)

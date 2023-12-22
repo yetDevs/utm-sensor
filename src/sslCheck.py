@@ -21,17 +21,27 @@ def get_ssl_cert_status(ssl_cert, url_file):
         url = url.strip()  # Remove any leading/trailing whitespace
         try:
             # Try connecting without SSL certificate
-            requests.get(url, timeout=5, verify=False)
-            df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Fail']}))
+            req = requests.get(url, timeout=5, verify=False)
+            if req.status_code == 200:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Fail']}))
+            elif req.status_code == 403:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Pass']}))
+            else:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Unknown']}))
         except Exception:
             pass
 
         try:
             # Try connecting with SSL certificate
-            requests.get(url, timeout=5, verify=ssl_cert)
-            df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Pass']}))
+            sslReq = requests.get(url, timeout=5, verify=ssl_cert)
+            if sslReq.status_code == 200:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Fail']}))
+            elif sslReq.status_code == 403:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Pass']}))
+            else:
+                df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Unknown']}))
         except Exception:
-            df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Fail']}))
+            df_list.append(pd.DataFrame({'URL': [url], 'SSL Status': ['Error']}))
 
     df = pd.concat(df_list, ignore_index=True)
     return df

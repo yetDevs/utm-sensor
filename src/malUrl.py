@@ -14,9 +14,14 @@ def malCheck(url_file):
         url = "http://" + url.strip()  # Remove any leading/trailing whitespace
         try:
             response = requests.get(url, timeout=5)
-            df_list.append(pd.DataFrame({'URL': [url], 'Status Code': [response.status_code]}))
+            if response.status_code == 200:
+                df_list.append(pd.DataFrame({'URL': [url], 'Status': ['Fail']}))
+            elif response.status_code == 403:
+                df_list.append(pd.DataFrame({'URL': [url], 'Status': ['Pass']}))
+            else:
+                df_list.append(pd.DataFrame({'URL': [url], 'Status': ['Unknown']}))
         except requests.exceptions.RequestException as e:
-            df_list.append(pd.DataFrame({'URL': [url], 'Status Code': ['Error: ' + str(e)]}))
+            df_list.append(pd.DataFrame({'URL': [url], 'Status': ['Error: ' + str(e)]}))
     df = pd.concat(df_list, ignore_index=True)
     return df
 

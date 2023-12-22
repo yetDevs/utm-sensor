@@ -49,7 +49,7 @@ def run_tests():
 
 def run_portScan():
     print("Running Port Scan...")
-    df_portScan = portScan.portCheck('scanme.nmap.org', portScan.portRanger('20-23'))
+    df_portScan = portScan.portCheck('scanme.nmap.org', portScan.portRanger('1-10000'))
     df_portScan['Module'] = 'Port Scan'
     print(df_portScan)
 

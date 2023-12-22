@@ -13,7 +13,12 @@ def get_response(req_data_file):
     req_url = 'https://enqeqqyg157lb.x.pipedream.net' #Change this to your own URL
     req_data = json.load(req_data_file)
     response = requests.post(req_url, json=req_data)
-    status = 'Fail' if response.status_code == 200 else 'Pass'
+    if response.status_code == 200:
+        status = 'Fail'
+    elif response.status_code == 403:
+        status = 'Pass'
+    else:
+        status = 'Unknown'
     df = pd.DataFrame({'URL': [req_url], 'Status Code': [response.status_code], 'Status': [status]})
     return df
 

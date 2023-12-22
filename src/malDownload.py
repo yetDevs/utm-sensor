@@ -13,10 +13,15 @@ def get_mal_url_status(mal_url):
     for mal_url in mal_url:
         mal_url = mal_url.strip()  # Remove any leading/trailing whitespace
         try:
-            requests.get(mal_url, timeout=5)
-            df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Fail']}))
+            response = requests.get(mal_url, timeout=5)
+            if response.status_code == 200:
+                df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Fail']}))
+            elif response.status_code == 403:
+                df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Pass']}))
+            else:
+                df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Unknown']}))
         except Exception:
-            df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Pass']}))
+            df_list.append(pd.DataFrame({'URL': [mal_url], 'Status': ['Error']}))
     df = pd.concat(df_list, ignore_index=True)
     return df
 
